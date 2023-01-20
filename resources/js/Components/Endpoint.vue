@@ -23,7 +23,7 @@
             </button>
         </td>
         <td class="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 w-16">
-            <button class="text-red-600 hover:text-red-900">
+            <button v-on:click="deleteEndpoint" class="text-red-600 hover:text-red-900">
                 Delete
             </button>
         </td>
@@ -32,7 +32,20 @@
 
 
 <script setup>
-defineProps({
+
+import { useForm } from '@inertiajs/vue3';
+
+const props = defineProps({
     endpoint: Object
 });
+
+const page = useForm({});
+
+const deleteEndpoint = () => {
+    if (window.confirm("Are you sure?")) {
+        page.delete(`/endpoints/${props.endpoint.id}`)
+
+    }
+
+}
 </script>
