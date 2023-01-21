@@ -27,6 +27,6 @@ class Site extends Model
 
     public function endpoints()
     {
-        return $this->hasMany(Endpoint::class);
+        return $this->hasMany(Endpoint::class)->latest();
     }
 }

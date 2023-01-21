@@ -18,7 +18,8 @@ class EndpointResource extends JsonResource
         return [
             'id' => $this->id,
             'location' => $this->location,
-            'frequency_label' => EndpointFrequency::from($this->frequency)->label()
+            'frequency_label' => EndpointFrequency::from($this->frequency)->label(),
+            'frequency_value' => EndpointFrequency::from($this->frequency)->value
         ];
     }
 }
