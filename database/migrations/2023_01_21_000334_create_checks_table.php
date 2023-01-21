@@ -15,10 +15,9 @@ return new class extends Migration
     {
         Schema::create('checks', function (Blueprint $table) {
             $table->id();
-
-            $table->foreignId('endpoint_id')->constrained()->onDelete('cascade');
             $table->unsignedInteger('response_code');
             $table->text('response_body')->nullable();
+            $table->foreignId('endpoint_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -10,9 +10,9 @@
             </template>
 
             <template v-else>
-                <a href="/" class="text-indigo-600 hover:text-indigo-900">
-                    {{ endpoint.location }}
-                </a>
+                <Link :href="`/endpoints/${endpoint.id}`" class="text-indigo-600 hover:text-indigo-900">
+                {{ endpoint.location }}
+                </Link>
             </template>
         </td>
         <td class="whitespace-nowrap px-3 text-sm text-gray-500 w-64">
@@ -22,7 +22,7 @@
                 <select name="frequency" id="frequency"
                     class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm h-9 leading-none text-sm"
                     v-model="editForm.frequency">
-                    
+
                     <option :value="frequency.frequency" v-for="frequency in page.props.endpoint_frequencies.data"
                         :key="frequency.frequency">
                         {{ frequency.label }}
@@ -37,10 +37,29 @@
 
         </td>
         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-            sa
+            <template v-if="endpoint.latest_check">
+                <time :datetime="endpoint.latest_check.created_at.datetime"
+                    :title="endpoint.latest_check.created_at.datetime">
+                    {{ endpoint.latest_check.created_at.human }}
+                </time>
+            </template>
+            <template v-else>
+                -
+            </template>
         </td>
         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-            Status
+            <template v-if="endpoint.latest_check">
+                <span class="inline-flex items-center rounded-md px-2.5 py-0.5 text-sm font-medium" :class="{
+                    'bg-green-100 tet-green-800': endpoint.latest_check.is_successfull,
+                    'bg-red-100 tet-red-800': !endpoint.latest_check.is_successfull
+                }">
+                    {{ endpoint.latest_check.response_code }} {{ endpoint.latest_check.status_text }}
+                </span>
+            </template>
+
+            <template v-else>
+                -
+            </template>
         </td>
         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
             x%
@@ -61,11 +80,11 @@
 
 <script setup>
 
-import { useForm, usePage } from '@inertiajs/vue3';
+import { useForm, usePage, Link } from '@inertiajs/vue3';
 import TextInput from '@/Components/TextInput.vue';
 import InputLabel from '@/Components/InputLabel.vue';
-import { ref, watch } from 'vue';
 import debouce from 'lodash.debounce';
+import { ref, watch } from 'vue';
 
 const editing = ref(false);
 

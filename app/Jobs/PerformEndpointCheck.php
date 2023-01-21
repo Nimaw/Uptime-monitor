@@ -32,21 +32,17 @@ class PerformEndpointCheck
      */
     public function handle()
     {
-        // try {
+        try {
             $response = Http::get($this->endpoint->url());
-
-            logger($response->status());
-        // } catch (Exception $ex) {
-        //     # codes...
-        // }
-
-        $this->endpoint->checks()->create([
-            'response_code' => $response->status(),
-            'response_body' => !$response->successful() ? $response->body() : null
-        ]);
-
-        $this->endpoint->update([
-            'next_check' => now()->addSeconds($this->endpoint->frequency)
-        ]);
+            $this->endpoint->checks()->create([
+                'response_code' => $response->status(),
+                'response_body' => !$response->successful() ? $response->body() : null
+            ]);
+            $this->endpoint->update([
+                'next_check' => now()->addSeconds($this->endpoint->frequency)
+            ]);
+        } catch (Exception $ex) {
+            # codes...
+        }
     }
 }
