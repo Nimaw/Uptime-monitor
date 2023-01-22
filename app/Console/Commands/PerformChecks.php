@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Jobs\PerformEndpointCheck;
 use App\Models\Endpoint;
 use Illuminate\Console\Command;
+use Illuminate\Log\Logger;
 
 class PerformChecks extends Command
 {
@@ -29,12 +30,11 @@ class PerformChecks extends Command
      */
     public function handle()
     {
-        logger('asd');
-        
         $enpdoints = Endpoint::where('next_check', '<=', now())
             ->each(function ($enpdoint) {
                 PerformEndpointCheck::dispatch($enpdoint);
             });
+
         return Command::SUCCESS;
     }
 }

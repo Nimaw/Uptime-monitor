@@ -27,7 +27,7 @@ class PerformEndpointCheck implements ShouldQueue, ShouldBeUnique
 
     public function uniqueId()
     {
-        return $this->endpoint->id;
+        return 'endpoints_' . $this->endpoint->id;
     }
 
     /**
