@@ -10,6 +10,11 @@ class EndpointPolicy
 {
     use HandlesAuthorization;
 
+    public function show(User $user, Endpoint $endpoint)
+    {
+        return $user->id === $endpoint->site->user_id;
+    }
+
     public function updateEndpoint(User $user, Endpoint $endpoint)
     {
         return $user->id === $endpoint->site->user_id;

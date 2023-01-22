@@ -46,7 +46,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="divide-y divide-gray-200 bg-white">
-                                        <Check v-for="check in endpoint.data.checks" :key="check.id" :check="check"/>
+                                        <Check v-for="check in endpoint.data.checks" :key="check.id" :check="check" />
                                     </tbody>
                                 </table>
                             </div>
