@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Http;
 
 class PerformEndpointCheck implements ShouldQueue, ShouldBeUnique
 {
-    use Dispatchable, InteractsWithQueue, SerializesModels, ShouldQueue;
+    use Dispatchable, InteractsWithQueue, SerializesModels;
 
     /**
      * Create a new job instance.

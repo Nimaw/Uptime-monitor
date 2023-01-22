@@ -29,7 +29,8 @@ class PerformChecks extends Command
      */
     public function handle()
     {
-
+        logger('asd');
+        
         $enpdoints = Endpoint::where('next_check', '<=', now())
             ->each(function ($enpdoint) {
                 PerformEndpointCheck::dispatch($enpdoint);
